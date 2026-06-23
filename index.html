@@ -1,0 +1,199 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>مفاجأة 💗</title>
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=Lalezar&family=Tajawal:wght@400;500;700;900&display=swap');
+
+  :root{
+    --blush: #ffe3ec;
+    --blush-deep: #ffc2d6;
+    --rose: #e8517a;
+    --rose-deep: #c92e5c;
+    --cream: #fff8f4;
+    --gold: #d9a441;
+    --text: #5a2438;
+  }
+
+  *{ box-sizing: border-box; }
+
+  body{
+    margin:0;
+    min-height:100vh;
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    background:
+      radial-gradient(circle at 15% 20%, var(--blush) 0%, transparent 45%),
+      radial-gradient(circle at 85% 80%, var(--blush-deep) 0%, transparent 50%),
+      var(--cream);
+    font-family: 'Tajawal', sans-serif;
+    color: var(--text);
+    padding: 24px;
+    overflow-x:hidden;
+  }
+
+  /* floating hearts background */
+  .heart-float{
+    position:fixed;
+    top:110%;
+    font-size: 22px;
+    opacity:.55;
+    animation: rise linear infinite;
+    pointer-events:none;
+    z-index:0;
+    color: var(--rose);
+  }
+  @keyframes rise{
+    to{ transform: translateY(-120vh) rotate(20deg); opacity:0; }
+  }
+
+  .card{
+    position:relative;
+    z-index:1;
+    background: #fff;
+    border-radius: 28px;
+    padding: 36px 32px 40px;
+    max-width: 420px;
+    width:100%;
+    text-align:center;
+    box-shadow: 0 25px 60px -15px rgba(201, 46, 92, 0.35);
+    border: 1px solid #ffe0ea;
+  }
+
+  .eyebrow{
+    font-size: 14px;
+    letter-spacing: 2px;
+    color: var(--gold);
+    font-weight: 700;
+    margin-bottom: 6px;
+  }
+
+  h1{
+    font-family: 'Lalezar', sans-serif;
+    font-size: 30px;
+    margin: 0 0 22px;
+    color: var(--rose-deep);
+    text-shadow: 0 2px 0 #fff, 0 4px 10px rgba(201,46,92,.15);
+  }
+
+  .photo-frame{
+    position: relative;
+    border-radius: 20px;
+    overflow:hidden;
+    margin-bottom: 26px;
+    box-shadow: 0 12px 28px -10px rgba(0,0,0,0.25);
+    border: 4px solid #fff;
+    outline: 2px solid var(--blush-deep);
+    transition: transform .5s ease;
+  }
+  .photo-frame img,
+  .photo-frame video{
+    display:block;
+    width:100%;
+    height: 320px;
+    object-fit: cover;
+    border-radius: 14px;
+  }
+  .photo-frame.revealed{
+    transform: scale(1.02);
+    outline-color: var(--rose);
+  }
+
+  #revealBtn{
+    appearance:none;
+    border:none;
+    cursor:pointer;
+    font-family:'Tajawal', sans-serif;
+    font-weight: 900;
+    font-size: 19px;
+    color:#fff;
+    padding: 16px 30px;
+    border-radius: 999px;
+    background: linear-gradient(135deg, var(--rose) 0%, var(--rose-deep) 100%);
+    box-shadow: 0 10px 22px -6px rgba(201,46,92,.55), inset 0 1px 0 rgba(255,255,255,.4);
+    display:inline-flex;
+    align-items:center;
+    gap:10px;
+    transition: transform .2s ease, box-shadow .2s ease;
+  }
+  #revealBtn:hover{
+    transform: translateY(-2px) scale(1.03);
+    box-shadow: 0 14px 28px -6px rgba(201,46,92,.65);
+  }
+  #revealBtn:active{
+    transform: translateY(0) scale(.98);
+  }
+  #revealBtn .emoji{
+    font-size: 20px;
+  }
+
+  #revealBtn.hidden{
+    display:none;
+  }
+
+  .hint{
+    margin-top: 16px;
+    font-size: 13px;
+    color: #b9839a;
+  }
+</style>
+</head>
+<body>
+
+<div class="card">
+  <div class="eyebrow">مفاجأة خاصة</div>
+  <h1>باتمانتي حسني 🎀💗</h1>
+
+  <div class="photo-frame" id="frame">
+    <img src="1234.jpg" alt="صورة" id="photo">
+  </div>
+
+  <button id="revealBtn">
+    <span class="emoji">🎀</span>
+    باتماني النسنس
+    <span class="emoji">❤️</span>
+  </button>
+
+  <div class="hint" id="hint">اضغط الزر عشان تشوف المفاجأة</div>
+</div>
+
+<script>
+  // floating hearts background
+  const hearts = ['💗','💖','🎀','💕'];
+  for(let i=0;i<14;i++){
+    const el = document.createElement('div');
+    el.className = 'heart-float';
+    el.textContent = hearts[Math.floor(Math.random()*hearts.length)];
+    el.style.left = Math.random()*100 + 'vw';
+    el.style.animationDuration = (8 + Math.random()*10) + 's';
+    el.style.animationDelay = (Math.random()*10) + 's';
+    el.style.fontSize = (16 + Math.random()*16) + 'px';
+    document.body.appendChild(el);
+  }
+
+  const btn = document.getElementById('revealBtn');
+  const frame = document.getElementById('frame');
+  const photo = document.getElementById('photo');
+  const hint = document.getElementById('hint');
+
+  btn.addEventListener('click', () => {
+    frame.classList.add('revealed');
+
+    const video = document.createElement('video');
+    video.src = '1234.mp4';
+    video.controls = true;
+    video.autoplay = true;
+    video.playsInline = true;
+    video.id = 'video';
+
+    photo.replaceWith(video);
+    btn.classList.add('hidden');
+    hint.textContent = '💗';
+  });
+</script>
+
+</body>
+</html>
